@@ -76,7 +76,7 @@ GPIO_TypeDef* Cam_SyncOut_GPIO_Port[7] = {
     Cam_SyncOut1_GPIO_Port, Cam_SyncOut2_GPIO_Port, Cam_SyncOut3_GPIO_Port, Cam_SyncOut4_GPIO_Port,
     Cam_SyncOut5_GPIO_Port, Cam_SyncOut6_GPIO_Port, Cam_SyncOut7_GPIO_Port};
 const int CAM_CNT = 7;
-const int CAM_FREQ_DIV[7] = {25, 25, 25, 25, 25, 25, 25};
+const int CAM_FREQ_DIV[7] = {25, 16, 25, 16, 25, 16, 25};
 const int LASER_DIV = 400;
 /* USER CODE END 0 */
 
@@ -112,7 +112,7 @@ int main(void)
   MX_USART3_UART_Init();
   /* USER CODE BEGIN 2 */
   HAL_UART_Receive_IT(&IMU_UART, (uint8_t *)imu_buf_single, 1);
-  char content[] = "$GPRMC,000000,A,hh.mm,N,ss.00,W,3.3,4.4,010117,004.2,W*";
+  char content[] = "$GPRMC,000000,A,hh.mm,N,ss.00,E,3.3,4.4,010117,004.2,W*";
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -213,7 +213,7 @@ static void MX_USART1_UART_Init(void)
 
   /* USER CODE END USART1_Init 1 */
   huart1.Instance = USART1;
-  huart1.Init.BaudRate = 115200;
+  huart1.Init.BaudRate = 9600;
   huart1.Init.WordLength = UART_WORDLENGTH_8B;
   huart1.Init.StopBits = UART_STOPBITS_1;
   huart1.Init.Parity = UART_PARITY_NONE;
@@ -246,11 +246,11 @@ static void MX_USART3_UART_Init(void)
 
   /* USER CODE END USART3_Init 1 */
   huart3.Instance = USART3;
-  huart3.Init.BaudRate = 921600;
+  huart3.Init.BaudRate = 460800;
   huart3.Init.WordLength = UART_WORDLENGTH_8B;
   huart3.Init.StopBits = UART_STOPBITS_1;
   huart3.Init.Parity = UART_PARITY_NONE;
-  huart3.Init.Mode = UART_MODE_TX_RX;
+  huart3.Init.Mode = UART_MODE_RX;
   huart3.Init.HwFlowCtl = UART_HWCONTROL_NONE;
   huart3.Init.OverSampling = UART_OVERSAMPLING_16;
   if (HAL_UART_Init(&huart3) != HAL_OK)
@@ -414,7 +414,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
         HAL_GPIO_WritePin(Cam_SyncOut_GPIO_Port[i], Cam_SyncOut_Pin[i],
             GPIO_PIN_SET);
       }
-      else if (((counter + 1) % CAM_FREQ_DIV[i]) == 1)
+      else if (((counter +1 ) % CAM_FREQ_DIV[i]) == 1)
       {
         HAL_GPIO_WritePin(Cam_SyncOut_GPIO_Port[i], Cam_SyncOut_Pin[i],
             GPIO_PIN_RESET);
@@ -422,14 +422,14 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
     }
 
     /* For LiDAR */
-    if (((counter + 1) % LASER_DIV) == 0)
-    {
-      HAL_GPIO_WritePin(Laser_SyncOut_GPIO_Port, Laser_SyncOut_Pin, GPIO_PIN_RESET);
-      gps_pulse_sent = 1;
-    }
-    else if (((counter + 1) % LASER_DIV) == 10)
+    if (((counter ) % LASER_DIV) == 0)
     {
       HAL_GPIO_WritePin(Laser_SyncOut_GPIO_Port, Laser_SyncOut_Pin, GPIO_PIN_SET);
+      gps_pulse_sent = 1;
+    }
+    else if (((counter ) % LASER_DIV) == 10)
+    {
+      HAL_GPIO_WritePin(Laser_SyncOut_GPIO_Port, Laser_SyncOut_Pin, GPIO_PIN_RESET);
     }
   }
 }
