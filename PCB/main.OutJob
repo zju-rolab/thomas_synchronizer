@@ -1,21 +1,8 @@
 [OutputJobFile]
 Version=1.0
-Caption=
-Description=
-VaultGUID=
-ItemGUID=
-ItemHRID=
-RevisionGUID=
-RevisionId=
-VaultHRID=
-AutoItemHRID=
-NextRevId=
-FolderGUID=
-LifeCycleDefinitionGUID=
-RevisionNamingSchemeGUID=
 
 [OutputGroup1]
-Name=sync.OutJob
+Name=
 Description=
 TargetOutputMedium=PDF
 VariantName=[No Variations]
@@ -50,7 +37,7 @@ Configuration1_Item1=Record=SchPrintView|ShowNoERC=True|ShowParamSet=True|ShowPr
 OutputType2=PCB Print
 OutputName2=PCB Prints
 OutputCategory2=Documentation
-OutputDocumentPath2=sync.PcbDoc
+OutputDocumentPath2=main.PcbDoc
 OutputVariantName2=
 OutputEnabled2=1
 OutputEnabled2_OutputMedium1=0
@@ -58,7 +45,7 @@ OutputEnabled2_OutputMedium2=2
 OutputEnabled2_OutputMedium3=0
 OutputEnabled2_OutputMedium4=0
 OutputDefault2=0
-PageOptions2=Record=PageOptions|CenterHorizontal=True|CenterVertical=True|PrintScale=2.44|XCorrection=1.00|YCorrection=1.00|PrintKind=0|BorderSize=5000000|LeftOffset=0|BottomOffset=0|Orientation=2|PaperLength=1000|PaperWidth=1000|Scale=100|PaperSource=7|PrintQuality=-3|MediaType=1|DitherType=10|PrintScaleMode=1|PaperKind=A4|PaperIndex=9
+PageOptions2=Record=PageOptions|CenterHorizontal=True|CenterVertical=True|PrintScale=2.17|XCorrection=1.00|YCorrection=1.00|PrintKind=0|BorderSize=5000000|LeftOffset=0|BottomOffset=0|Orientation=2|PaperLength=1000|PaperWidth=1000|Scale=100|PaperSource=7|PrintQuality=-3|MediaType=1|DitherType=10|PrintScaleMode=1|PaperKind=A4|PaperIndex=9
 Configuration2_Name1=OutputConfigurationParameter1
 Configuration2_Item1=DesignatorDisplayMode=Physical|PrintArea=DesignExtent|PrintAreaLowerLeftCornerX=0|PrintAreaLowerLeftCornerY=0|PrintAreaUpperRightCornerX=0|PrintAreaUpperRightCornerY=0|Record=PcbPrintView
 Configuration2_Name2=OutputConfigurationParameter2
@@ -81,15 +68,15 @@ Configuration2_Name10=OutputConfigurationParameter10
 Configuration2_Item10=CArc=Full|CFill=Full|Comment=Full|Coordinate=Full|CPad=Full|CRegion=Full|CText=Full|CTrack=Full|CVia=Full|DDSymbolKind=0|DDSymbolSize=500000|DDSymbolSortKind=0|Designator=Full|Dimension=Full|DLayer1=TopLayer|DLayer2=BottomLayer|FArc=Full|FFill=Full|FPad=Full|FRegion=Full|FText=Full|FTrack=Full|FVia=Full|Layer=Mechanical15|Polygon=Full|PrintOutIndex=0|Record=PcbPrintLayer
 
 [PublishSettings]
-OutputFilePath2=Y:\Projects\thomas_synchronizer\PCB\.PDF
+OutputFilePath2=Z:\Projects\thomas_synchronizer\PCB\.PDF
 ReleaseManaged2=0
-OutputBasePath2=Y:\Projects\thomas_synchronizer\PCB\
+OutputBasePath2=Z:\Projects\thomas_synchronizer\PCB\
 OutputPathMedia2=
 OutputPathMediaValue2=
 OutputPathOutputer2=[Output Type]
 OutputPathOutputerPrefix2=
 OutputPathOutputerValue2=
-OutputFileName2=sync.pdf
+OutputFileName2=main.pdf
 OutputFileNameMulti2=
 UseOutputNameForMulti2=1
 OutputFileNameSpecial2=
@@ -108,7 +95,7 @@ ShowComponentParameters2=1
 GlobalBookmarks2=0
 OutputFilePath3=
 ReleaseManaged3=1
-OutputBasePath3=Project Outputs for sync
+OutputBasePath3=
 OutputPathMedia3=
 OutputPathMediaValue3=
 OutputPathOutputer3=[Output Type]
@@ -121,7 +108,7 @@ OutputFileNameSpecial3=
 OpenOutput3=1
 OutputFilePath4=
 ReleaseManaged4=1
-OutputBasePath4=Project Outputs for sync
+OutputBasePath4=
 OutputPathMedia4=
 OutputPathMediaValue4=
 OutputPathOutputer4=[Output Type]
@@ -158,7 +145,7 @@ WmvVideoCodecName4=Windows Media Video V7
 WmvQuality4=80
 
 [GeneratedFilesSettings]
-RelativeOutputPath2=Y:\Projects\thomas_synchronizer\PCB\.PDF
+RelativeOutputPath2=Z:\Projects\thomas_synchronizer\PCB\.PDF
 OpenOutputs2=0
 RelativeOutputPath3=
 OpenOutputs3=1
