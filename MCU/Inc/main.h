@@ -58,25 +58,33 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define IMU_SyncIn_Pin GPIO_PIN_5
 #define IMU_SyncIn_GPIO_Port GPIOA
+#define IMU_SyncIn_Pin GPIO_PIN_5
 #define IMU_SyncIn_EXTI_IRQn EXTI9_5_IRQn
-#define Cam_SyncOut1_Pin GPIO_PIN_0
+
+#define LiDAR_SyncOut_GPIO_Port GPIOB
+#define LiDAR_SyncOut_Pin GPIO_PIN_15
+
 #define Cam_SyncOut1_GPIO_Port GPIOB
-#define Cam_SyncOut2_Pin GPIO_PIN_1
+#define Cam_SyncOut1_Pin GPIO_PIN_1
+
 #define Cam_SyncOut2_GPIO_Port GPIOB
-#define Laser_SyncOut_Pin GPIO_PIN_15
-#define Laser_SyncOut_GPIO_Port GPIOB
-#define Cam_SyncOut7_Pin GPIO_PIN_5
-#define Cam_SyncOut7_GPIO_Port GPIOB
-#define Cam_SyncOut6_Pin GPIO_PIN_6
-#define Cam_SyncOut6_GPIO_Port GPIOB
-#define Cam_SyncOut5_Pin GPIO_PIN_7
-#define Cam_SyncOut5_GPIO_Port GPIOB
-#define Cam_SyncOut4_Pin GPIO_PIN_8
-#define Cam_SyncOut4_GPIO_Port GPIOB
-#define Cam_SyncOut3_Pin GPIO_PIN_9
+#define Cam_SyncOut2_Pin GPIO_PIN_0
+
 #define Cam_SyncOut3_GPIO_Port GPIOB
+#define Cam_SyncOut3_Pin GPIO_PIN_5
+
+#define Cam_SyncOut4_GPIO_Port GPIOB
+#define Cam_SyncOut4_Pin GPIO_PIN_6
+
+#define Cam_SyncOut5_GPIO_Port GPIOB
+#define Cam_SyncOut5_Pin GPIO_PIN_7
+
+#define Cam_SyncOut6_GPIO_Port GPIOB
+#define Cam_SyncOut6_Pin GPIO_PIN_8
+
+#define Cam_SyncOut7_GPIO_Port GPIOB
+#define Cam_SyncOut7_Pin GPIO_PIN_9
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
