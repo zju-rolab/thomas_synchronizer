@@ -58,33 +58,36 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define IMU_SyncIn_GPIO_Port GPIOA
-#define IMU_SyncIn_Pin GPIO_PIN_5
-#define IMU_SyncIn_EXTI_IRQn EXTI9_5_IRQn
-
-#define LiDAR_SyncOut_GPIO_Port GPIOB
-#define LiDAR_SyncOut_Pin GPIO_PIN_15
-
-#define Cam_SyncOut1_GPIO_Port GPIOB
-#define Cam_SyncOut1_Pin GPIO_PIN_1
-
-#define Cam_SyncOut2_GPIO_Port GPIOB
-#define Cam_SyncOut2_Pin GPIO_PIN_0
-
-#define Cam_SyncOut3_GPIO_Port GPIOB
-#define Cam_SyncOut3_Pin GPIO_PIN_5
-
-#define Cam_SyncOut4_GPIO_Port GPIOB
-#define Cam_SyncOut4_Pin GPIO_PIN_6
-
-#define Cam_SyncOut5_GPIO_Port GPIOB
-#define Cam_SyncOut5_Pin GPIO_PIN_7
-
-#define Cam_SyncOut6_GPIO_Port GPIOB
-#define Cam_SyncOut6_Pin GPIO_PIN_8
-
-#define Cam_SyncOut7_GPIO_Port GPIOB
-#define Cam_SyncOut7_Pin GPIO_PIN_9
+#define LIDAR_BAUD 115200
+#define IMU_BAUD 460800
+#define CMD_BAUD 9600
+#define CMD_USART_OUT_Pin GPIO_PIN_2
+#define CMD_USART_OUT_GPIO_Port GPIOA
+#define CMD_USART_IN_Pin GPIO_PIN_3
+#define CMD_USART_IN_GPIO_Port GPIOA
+#define IMU_SYNC_IN_Pin GPIO_PIN_5
+#define IMU_SYNC_IN_GPIO_Port GPIOA
+#define IMU_SYNC_IN_EXTI_IRQn EXTI9_5_IRQn
+#define CAM_SYNC_OUT1_Pin GPIO_PIN_0
+#define CAM_SYNC_OUT1_GPIO_Port GPIOB
+#define CAM_SYNC_OUT2_Pin GPIO_PIN_1
+#define CAM_SYNC_OUT2_GPIO_Port GPIOB
+#define IMU_IN_Pin GPIO_PIN_11
+#define IMU_IN_GPIO_Port GPIOB
+#define LIDAR_SYNC_OUT_Pin GPIO_PIN_15
+#define LIDAR_SYNC_OUT_GPIO_Port GPIOB
+#define LIDAR_MSG_OUT_Pin GPIO_PIN_9
+#define LIDAR_MSG_OUT_GPIO_Port GPIOA
+#define CAM_SYNC_OUT7_Pin GPIO_PIN_5
+#define CAM_SYNC_OUT7_GPIO_Port GPIOB
+#define CAM_SYNC_OUT6_Pin GPIO_PIN_6
+#define CAM_SYNC_OUT6_GPIO_Port GPIOB
+#define CAM_SYNC_OUT5_Pin GPIO_PIN_7
+#define CAM_SYNC_OUT5_GPIO_Port GPIOB
+#define CAM_SYNC_OUT4_Pin GPIO_PIN_8
+#define CAM_SYNC_OUT4_GPIO_Port GPIOB
+#define CAM_SYNC_OUT3_Pin GPIO_PIN_9
+#define CAM_SYNC_OUT3_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */

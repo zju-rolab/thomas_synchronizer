@@ -35,20 +35,21 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-#define IMU_BAUD	460800
-#define LIDAR_BAUD	9600
+
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
 #define IMU_UART huart3
 #define LASER_UART huart1
-#define uputs(buf, len) HAL_UART_Transmit(&LASER_UART, (uint8_t *)buf, len, 0xFFFF)
+#define CMD_UART huart2
+#define uputs(buf, len) HAL_UART_Transmit(&CMD_UART, (uint8_t *)buf, len, 0xFFFF)
 #define uputs2(buf) uputs(buf, strlen(buf))
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
 UART_HandleTypeDef huart1;
+UART_HandleTypeDef huart2;
 UART_HandleTypeDef huart3;
 
 /* USER CODE BEGIN PV */
@@ -60,13 +61,13 @@ uint32_t counter = 0;
 int send_gps = 0;
 int gps_pulse_sent = 0;
 
-uint16_t Cam_SyncOut_Pin[7] = {
-		Cam_SyncOut1_Pin, Cam_SyncOut2_Pin, Cam_SyncOut3_Pin, Cam_SyncOut4_Pin,
-		Cam_SyncOut5_Pin, Cam_SyncOut6_Pin, Cam_SyncOut7_Pin};
-GPIO_TypeDef* Cam_SyncOut_GPIO_Port[7] = {
-		Cam_SyncOut1_GPIO_Port, Cam_SyncOut2_GPIO_Port, Cam_SyncOut3_GPIO_Port, Cam_SyncOut4_GPIO_Port,
-		Cam_SyncOut5_GPIO_Port, Cam_SyncOut6_GPIO_Port, Cam_SyncOut7_GPIO_Port};
-const int CAM_CNT = sizeof(Cam_SyncOut_Pin) / sizeof(uint16_t);
+uint16_t CAM_SYNC_OUT_Pin[7] = {
+		CAM_SYNC_OUT1_Pin, CAM_SYNC_OUT2_Pin, CAM_SYNC_OUT3_Pin, CAM_SYNC_OUT4_Pin,
+		CAM_SYNC_OUT5_Pin, CAM_SYNC_OUT6_Pin, CAM_SYNC_OUT7_Pin};
+GPIO_TypeDef* CAM_SYNC_OUT_GPIO_Port[7] = {
+		CAM_SYNC_OUT1_GPIO_Port, CAM_SYNC_OUT2_GPIO_Port, CAM_SYNC_OUT3_GPIO_Port, CAM_SYNC_OUT4_GPIO_Port,
+		CAM_SYNC_OUT5_GPIO_Port, CAM_SYNC_OUT6_GPIO_Port, CAM_SYNC_OUT7_GPIO_Port};
+const int CAM_CNT = sizeof(CAM_SYNC_OUT_Pin) / sizeof(uint16_t);
 
 /* USER CODE END PV */
 
@@ -75,6 +76,7 @@ void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_USART1_UART_Init(void);
 static void MX_USART3_UART_Init(void);
+static void MX_USART2_UART_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -115,6 +117,7 @@ int main(void)
   MX_GPIO_Init();
   MX_USART1_UART_Init();
   MX_USART3_UART_Init();
+  MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
   HAL_UART_Receive_IT(&IMU_UART, (uint8_t *)imu_buf_single, 1);
   char content[] = "$GPRMC,000000,A,hh.mm,N,ss.00,E,3.3,4.4,010117,004.2,W*";
@@ -221,7 +224,7 @@ static void MX_USART1_UART_Init(void)
   huart1.Init.WordLength = UART_WORDLENGTH_8B;
   huart1.Init.StopBits = UART_STOPBITS_1;
   huart1.Init.Parity = UART_PARITY_NONE;
-  huart1.Init.Mode = UART_MODE_TX_RX;
+  huart1.Init.Mode = UART_MODE_TX;
   huart1.Init.HwFlowCtl = UART_HWCONTROL_NONE;
   huart1.Init.OverSampling = UART_OVERSAMPLING_16;
   if (HAL_UART_Init(&huart1) != HAL_OK)
@@ -231,6 +234,39 @@ static void MX_USART1_UART_Init(void)
   /* USER CODE BEGIN USART1_Init 2 */
 
   /* USER CODE END USART1_Init 2 */
+
+}
+
+/**
+  * @brief USART2 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_USART2_UART_Init(void)
+{
+
+  /* USER CODE BEGIN USART2_Init 0 */
+
+  /* USER CODE END USART2_Init 0 */
+
+  /* USER CODE BEGIN USART2_Init 1 */
+
+  /* USER CODE END USART2_Init 1 */
+  huart2.Instance = USART2;
+  huart2.Init.BaudRate = CMD_BAUD;
+  huart2.Init.WordLength = UART_WORDLENGTH_8B;
+  huart2.Init.StopBits = UART_STOPBITS_1;
+  huart2.Init.Parity = UART_PARITY_NONE;
+  huart2.Init.Mode = UART_MODE_TX_RX;
+  huart2.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart2.Init.OverSampling = UART_OVERSAMPLING_16;
+  if (HAL_UART_Init(&huart2) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN USART2_Init 2 */
+
+  /* USER CODE END USART2_Init 2 */
 
 }
 
@@ -282,19 +318,19 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, Cam_SyncOut1_Pin|Cam_SyncOut2_Pin|LiDAR_SyncOut_Pin|Cam_SyncOut7_Pin
-                          |Cam_SyncOut6_Pin|Cam_SyncOut5_Pin|Cam_SyncOut4_Pin|Cam_SyncOut3_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, CAM_SYNC_OUT1_Pin|CAM_SYNC_OUT2_Pin|LIDAR_SYNC_OUT_Pin|CAM_SYNC_OUT7_Pin 
+                          |CAM_SYNC_OUT6_Pin|CAM_SYNC_OUT5_Pin|CAM_SYNC_OUT4_Pin|CAM_SYNC_OUT3_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pin : IMU_SyncIn_Pin */
-  GPIO_InitStruct.Pin = IMU_SyncIn_Pin;
+  /*Configure GPIO pin : IMU_SYNC_IN_Pin */
+  GPIO_InitStruct.Pin = IMU_SYNC_IN_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(IMU_SyncIn_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(IMU_SYNC_IN_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : Cam_SyncOut1_Pin Cam_SyncOut2_Pin LiDAR_SyncOut_Pin Cam_SyncOut7_Pin
-                           Cam_SyncOut6_Pin Cam_SyncOut5_Pin Cam_SyncOut4_Pin Cam_SyncOut3_Pin */
-  GPIO_InitStruct.Pin = Cam_SyncOut1_Pin|Cam_SyncOut2_Pin|LiDAR_SyncOut_Pin|Cam_SyncOut7_Pin
-                          |Cam_SyncOut6_Pin|Cam_SyncOut5_Pin|Cam_SyncOut4_Pin|Cam_SyncOut3_Pin;
+  /*Configure GPIO pins : CAM_SYNC_OUT1_Pin CAM_SYNC_OUT2_Pin LIDAR_SYNC_OUT_Pin CAM_SYNC_OUT7_Pin 
+                           CAM_SYNC_OUT6_Pin CAM_SYNC_OUT5_Pin CAM_SYNC_OUT4_Pin CAM_SYNC_OUT3_Pin */
+  GPIO_InitStruct.Pin = CAM_SYNC_OUT1_Pin|CAM_SYNC_OUT2_Pin|LIDAR_SYNC_OUT_Pin|CAM_SYNC_OUT7_Pin 
+                          |CAM_SYNC_OUT6_Pin|CAM_SYNC_OUT5_Pin|CAM_SYNC_OUT4_Pin|CAM_SYNC_OUT3_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -421,12 +457,12 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
     {
       if (((counter) % CAM_FREQ_DIV[i]) == 0)
       {
-        HAL_GPIO_WritePin(Cam_SyncOut_GPIO_Port[i], Cam_SyncOut_Pin[i],
+        HAL_GPIO_WritePin(CAM_SYNC_OUT_GPIO_Port[i], CAM_SYNC_OUT_Pin[i],
             GPIO_PIN_SET);
       }
       else if (((counter ) % CAM_FREQ_DIV[i]) == 1)
       {
-        HAL_GPIO_WritePin(Cam_SyncOut_GPIO_Port[i], Cam_SyncOut_Pin[i],
+        HAL_GPIO_WritePin(CAM_SYNC_OUT_GPIO_Port[i], CAM_SYNC_OUT_Pin[i],
             GPIO_PIN_RESET);
       }
     }
@@ -434,12 +470,12 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
     /* For LiDAR */
     if (((counter) % LASER_DIV) == 0)
     {
-      HAL_GPIO_WritePin(LiDAR_SyncOut_GPIO_Port, LiDAR_SyncOut_Pin, GPIO_PIN_SET);
+      HAL_GPIO_WritePin(LIDAR_SYNC_OUT_GPIO_Port, LIDAR_SYNC_OUT_Pin, GPIO_PIN_SET);
       gps_pulse_sent = 1;
     }
     else if (((counter) % LASER_DIV) == 10)
     {
-      HAL_GPIO_WritePin(LiDAR_SyncOut_GPIO_Port, LiDAR_SyncOut_Pin, GPIO_PIN_RESET);
+      HAL_GPIO_WritePin(LIDAR_SYNC_OUT_GPIO_Port, LIDAR_SYNC_OUT_Pin, GPIO_PIN_RESET);
     }
   }
 }
